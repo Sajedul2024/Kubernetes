@@ -6,8 +6,7 @@ metadata:
 data:
   username: admin
 ...................................................
-  kubectl apply -f myconfigmap.yaml
-...................................................
+  
 apiVersion: v1
 kind: Pod
 metadata:
@@ -22,12 +21,6 @@ spec:
             name: myconfigmap
 
 ..............................................
-
-kubectl apply -f env-configmap.yaml
-.............................................
-
-kubectl logs pod/ env-configmap
-
 
 (2)
 apiVersion: v1
