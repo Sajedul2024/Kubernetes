@@ -1,0 +1,45 @@
+(1)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: testconfigmap
+data:
+  username: admin
+...................................................
+  kubectl apply -f myconfigmap.yaml
+...................................................
+apiVersion: v1
+kind: Pod
+metadata:
+  name: env-configmap
+spec:
+  containers:
+    - name: app
+      command: ["/bin/sh", "-c", "printenv"]
+      image: busybox:latest
+      envFrom:
+        - configMapRef:
+            name: myconfigmap
+
+..............................................
+
+kubectl apply -f env-configmap.yaml
+.............................................
+
+kubectl logs pod/ env-configmap
+
+
+(2)
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test1
+  labels:
+    app: test1
+spec:
+  containers:
+  - name: test1
+    image: alpine
+    ports:
+    - containerPort: 80
+    command: ["/bin/sh", "-ec", "while :; do echo '.'; sleep 5 ; done"]
